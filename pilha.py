@@ -5,7 +5,11 @@
 #prioridade '()' = 10
 #prioridade '[]' = 20
 
-equa = str(input('Digite a operação que deseja fazer: \n'))
+print('\033[;1m'+ '\033[1;34m'+'\n         Verificador de Expressões Booleanas'+'\033[0;0m')
+print('\033[;1m'+'Coloque expressões bem formadas podendo fazer o uso de parenteses e colchetes.')
+print('\033[1;92m'+'Instruções para o input:\n  [ V ]-> Verdadeiro\n  [ F ]-> Falso\n  [ ^ ]-> And\n  [ v ]-> Or\n  [ s ]-> Implica\n  [ d ]-> Bi-implica\n'+'\033[0;0m')
+
+equa = str(input('\033[;1m'+'Digite a expressão que deseja verificar: '+'\033[0;0m'))
 operando = []
 operador = []
 prioridade_operador = []
@@ -14,8 +18,10 @@ tam = len(equa)
 flag = t = 0   
 while t < tam:
     if equa[t] == 'V' or equa[t] == 'F':
-        print(operando)
-        print(operador+'\n')
+        print(f'\033[1;35mPilha dos Operandos:            {operando}\033[0;0m')
+        print(f'\033[1;93mPilha dos Operadores:           {operador}\033[0;0m')
+        print(f'\033[1;30mPilha Prioridade de Operadores: {prioridade_operador}\n\033[0;0m')
+
         operando.append(equa[t])
     elif equa[t] == '(':
         flag += 10
@@ -26,8 +32,9 @@ while t < tam:
     elif equa[t] == ')':
         flag -= 10
     else:
-        print(operando)
-        print(operador+'\n')
+        print(f'\033[1;35mPilha dos Operandos:            {operando}\033[0;0m')
+        print(f'\033[1;93mPilha dos Operadores:           {operador}\033[0;0m')
+        print(f'\033[1;30mPilha Prioridade de Operadores: {prioridade_operador}\n\033[0;0m')
         if equa[t] == 'd':
             aux = 1+flag
         elif equa[t] == 's':
@@ -37,7 +44,7 @@ while t < tam:
         elif equa[t] == '^':
             aux = 4+flag
 
-        if len(operador) != 0 and prioridade_operador[-1] > aux:
+        while len(operador) != 0 and prioridade_operador[-1] > aux:
             operando1 = operando[-1]
             operando.pop()
             operando2 = operando[-1]
@@ -75,8 +82,9 @@ while t < tam:
     t+=1
 
 while len(operador) > 0:
-    print(operando)
-    print(operador+'\n')
+    print(f'\033[1;35mPilha dos Operandos:            {operando}\033[0;0m')
+    print(f'\033[1;93mPilha dos Operadores:           {operador}\033[0;0m')
+    print(f'\033[1;30mPilha Prioridade de Operadores: {prioridade_operador}\n\033[0;0m')
     operando1 = operando[-1]
     operando.pop()
     operando2 = operando[-1]
@@ -109,9 +117,9 @@ while len(operador) > 0:
             operando.append('F')
         operador.pop()
         prioridade_operador.pop()
-print(operando)
-print(operador + '\n')
-
-print('Essa expressão é: ', end='')
-if operando[-1] == 'V': print('Verdadeira!')
-elif operando[-1] == 'F': print('Falsa!')
+print(f'\033[1;35mPilha dos Operandos:            {operando}\033[0;0m')
+print(f'\033[1;93mPilha dos Operadores:           {operador}\033[0;0m')
+print(f'\033[1;30mPilha Prioridade de Operadores: {prioridade_operador}\n\033[0;0m')
+print('\033[;1m'+'Essa expressão é: ', end='')
+if operando[-1] == 'V': print('\033[1;32m'+'Verdadeira!\n'+'\033[0;0m')
+elif operando[-1] == 'F': print('\033[1;31m'+'Falsa!\n'+'\033[0;0m')
