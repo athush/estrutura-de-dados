@@ -5,27 +5,18 @@
 #prioridade '()' = 10
 #prioridade '[]' = 20
 
-# equa -> t
-# operando -> i
-# operador -> j
-
-equa = str(input('Digite a operação que deseja fazer: '))
+equa = str(input('Digite a operação que deseja fazer: \n'))
 operando = []
 operador = []
 prioridade_operador = []
 equa = equa.replace(" ","")
 tam = len(equa)
-i = j = flag = t = aux = 0   
+flag = t = 0   
 while t < tam:
-    print(operando)
-    print(operador)
-    print(prioridade_operador)
-    print(f't = {t}, i = {i}, j = {j}')
-    print()
-
     if equa[t] == 'V' or equa[t] == 'F':
+        print(operando)
+        print(operador+'\n')
         operando.append(equa[t])
-        i+=1
     elif equa[t] == '(':
         flag += 10
     elif equa[t] == '[':
@@ -35,6 +26,8 @@ while t < tam:
     elif equa[t] == ')':
         flag -= 10
     else:
+        print(operando)
+        print(operador+'\n')
         if equa[t] == 'd':
             aux = 1+flag
         elif equa[t] == 's':
@@ -44,91 +37,81 @@ while t < tam:
         elif equa[t] == '^':
             aux = 4+flag
 
-        if j != 0 and prioridade_operador[-1] > aux:
-            j-=1
-            i-=1
-
-            if operador[j] == 'v':
-                if operando[i] == 'V' or operando[i-1] == 'V':
-                    operando[i-1] ='V'
+        if len(operador) != 0 and prioridade_operador[-1] > aux:
+            operando1 = operando[-1]
+            operando.pop()
+            operando2 = operando[-1]
+            operando.pop()
+            if operador[-1] == 'v':
+                if operando1 == 'V' or operando2 == 'V':
+                    operando.append('V')
                 else:
-                    operando[i-1] ='F'
+                    operando.append('F')
                 operador.pop()
-                operando.pop()
                 prioridade_operador.pop()
-            elif operador[j] == '^':
-                if operando[i] == "V" and operando[i-1] == 'V':
-                    operando[i-1] ='V'
+            elif operador[-1] == '^':
+                if operando1 == "V" and operando2 == 'V':
+                    operando.append('V')
                 else:
-                    operando[i-1] ='F'
+                    operando.append('F')
                 operador.pop()
-                operando.pop()
                 prioridade_operador.pop()
-            elif operador[j] == 's':
-                if operando[i] == 'F' and operando[i-1] == 'V':
-                    operando[i-1] ='F'
+            elif operador[-1] == 's':
+                if operando1 == 'F' and operando2 == 'V':
+                    operando.append('F')
                 else:
-                    operando[i-1] ='V'
+                    operando.append('V')
                 operador.pop()
-                operando.pop()
                 prioridade_operador.pop()
-            elif operador[j] == 'd':
-                if operando[i] == operando[i-1]:
-                    operando[i-1] ='V'
+            elif operador[-1] == 'd':
+                if operando1 == operando2:
+                    operando.append('V')
                 else:
-                    operando[i-1] ='F' 
+                    operando.append('F')
                 operador.pop()
-                operando.pop()
                 prioridade_operador.pop()  
         prioridade_operador.append(aux)
         operador.append(equa[t])
-        j+=1
     t+=1
 
-while j > 0:
+while len(operador) > 0:
     print(operando)
-    print(operador)
-    print(prioridade_operador)
-    print(f't = {t}, i = {i}, j = {j}')
-    print()
-    j-=1
-    i-=1
-    if operador[j] == 'v':
-        if operando[i] == 'V' or operando[i-1] == 'V':
-            operando[i-1] ='V'
+    print(operador+'\n')
+    operando1 = operando[-1]
+    operando.pop()
+    operando2 = operando[-1]
+    operando.pop()
+    if operador[-1] == 'v':
+        if operando1 == 'V' or operando2 == 'V':
+            operando.append('V')
         else:
-            operando[i-1] ='F'
+            operando.append('F')
         operador.pop()
-        operando.pop()
         prioridade_operador.pop()
-    elif operador[j] == '^':
-        if operando[i] == "V" and operando[i-1] == 'V':
-            operando[i-1] ='V'
+    elif operador[-1] == '^':
+        if operando1 == "V" and operando2 == 'V':
+            operando.append('V')
         else:
-            operando[i-1] ='F'
+            operando.append('F')
         operador.pop()
-        operando.pop()
         prioridade_operador.pop()
-    elif operador[j] == 's':
-        if operando[i] == 'F' and operando[i-1] == 'V':
-            operando[i-1] ='F'
+    elif operador[-1] == 's':
+        if operando1 == 'F' and operando2 == 'V':
+            operando.append('F')
         else:
-            operando[i-1] ='V'
+            operando.append('V')
         operador.pop()
-        operando.pop()
         prioridade_operador.pop()
-    elif operador[j] == 'd':
-        if operando[i] == operando[i-1]:
-            operando[i-1] ='V'
+    elif operador[-1] == 'd':
+        if operando1 == operando2:
+            operando.append('V')
         else:
-            operando[i-1] ='F' 
+            operando.append('F')
         operador.pop()
-        operando.pop()
         prioridade_operador.pop()
-print(equa)
-
 print(operando)
-print(operador)
-print(prioridade_operador)
-print(f't = {t}, i = {i}, j = {j}')
-print()
+print(operador + '\n')
+
+print('Essa expressão é: ', end='')
+if operando[-1] == 'V': print('Verdadeira!')
+elif operando[-1] == 'F': print('Falsa!')
