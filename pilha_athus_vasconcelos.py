@@ -1,3 +1,6 @@
+#Linguagem: Python 3
+#Compilador: python3
+
 #prioridade 'd' = 1
 #prioridade 's' = 2
 #prioridade 'v' = 3
